@@ -396,22 +396,32 @@ handles.fps=fps;
 guidata(hObject,handles)
 
 return
+% [AX,H1,H2]=plotyy(time,a(1,:),time,a(8,:));
+% set(H1,'linewidth',2);
+% set(H2,'linewidth',2);
+% set(get(AX(1),'\DeltaOD CytoA','FontSize',14,'FontWeight', 'Bold')
+% set(get(AX(2),'Ylabel'),'String','\DeltaOD Myoglobin','FontSize',14,...
+%     'FontWeight', 'Bold','rot',-90,'VerticalAlignment','bottom')
+% set(AX(1),'FontSize',14, 'XTick', 0:90:max(time),'xlim', [0 max(time)])
+% set(AX(2),'FontSize',14, 'XTick', 0:90:max(time),'xlim', [0 max(time)])
+% xlabel('Time (sec)','FontSize',14,'FontWeight', 'Bold')
+% imagesc(imstd);colorbar;axis image; 
 
 % --- Executes on button press in pushbuttonCaRegPick.
 function pushbuttonCaRegPick_Callback(hObject, eventdata, handles)
-    [gr,gc]=find(handles.imstd>0);
-    [pc,pr]=ginput(1);                                                                                                                                 
-    pc=round(pc);                                                                                                                                       
-    pr=round(pr);
+[gr,gc]=find(handles.imstd>0);
+[pc,pr]=ginput(1);                                                                                                                                 
+pc=round(pc);                                                                                                                                       
+pr=round(pr);
 
-    % update text boxes
-    set(handles.editCaRegX,'String',num2str(pc));
-    set(handles.editCaRegY,'String',num2str(pr));
+% update text boxes
+set(handles.editCaRegX,'String',num2str(pc));
+set(handles.editCaRegY,'String',num2str(pr));
 
-    % output needed vars  
-    handles.gr=gr;
-    handles.gc=gc;
-    guidata(hObject,handles);
+% output needed vars  
+handles.gr=gr;
+handles.gc=gc;
+guidata(hObject,handles);
 
 
 % --- Executes on button press in pushbuttonVmRegPick.
@@ -499,7 +509,6 @@ function pushbuttonCaRegOK_Callback(hObject, eventdata, handles)
     % Exporting variables
     handles.time=time;
     handles.calcium=calcium;
-    handles.avesig = avesig;
     guidata(hObject,handles);
 
 
@@ -841,9 +850,7 @@ function pushbuttonEpochOK_Callback(hObject, eventdata, handles)
         handles.time=time(pt1:pt2);
         guidata(hObject,handles);
         axes(handles.axes1)
-        hold off
         plotEpoch(epoch, pt1, pt2, time)
-        hold on
         plotEpoch(v_epoch, pt1, pt2, time)
         set(handles.radiobuttonFigureXTime,'Value',1);
 
@@ -873,9 +880,9 @@ function pushbuttonEpochOK_Callback(hObject, eventdata, handles)
         handles.time=time(pt1:pt2);
         guidata(hObject,handles);
         axes(handles.axes1)
-        hold off
         plotEpoch(v_epoch, pt1, pt2, time)
         set(handles.radiobuttonFigureXTime,'Value',1);
+
 
     elseif mode_selection == 3 % Calcium only
         calcium=handles.calcium;
@@ -903,18 +910,17 @@ function pushbuttonEpochOK_Callback(hObject, eventdata, handles)
         handles.time=time(pt1:pt2);
         guidata(hObject,handles);
         axes(handles.axes1)
-        hold off
         plotEpoch(epoch, pt1, pt2, time)
         set(handles.radiobuttonFigureXTime,'Value',1);
     
     end
 
 function plotEpoch(epoch, pt1, pt2, time)
+    hold off
     plot(time(pt1:pt2),epoch)
     xlim([time(pt1) time(pt2)])
     xlabel('Time (sec)')
     ylabel('Fluorescence (AU)');
-    hold off
 
 % --- Calcium Individual Results
 function pushbuttonResultsCaInd_Callback(hObject, eventdata, handles)
@@ -1174,15 +1180,15 @@ end
 
 % --- Executes during object creation, after setting all properties.
 function editVmRegY_CreateFcn(hObject, eventdata, handles)
-    % hObject    handle to editVmRegY (see GCBO)
-    % eventdata  reserved - to be defined in a future version of MATLAB
-    % handles    empty - handles not created until after all CreateFcns called
+% hObject    handle to editVmRegY (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
 
-    % Hint: edit controls usually have a white background on Windows.
-    %       See ISPC and COMPUTER.
-    if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
-        set(hObject,'BackgroundColor','white');
-    end
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
 
 % --- Executes during object creation, after setting all properties.
 function editVmRegR_CreateFcn(hObject, eventdata, handles)
@@ -1197,76 +1203,75 @@ if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgr
 end
 
 
-% --- Executes on button press in Region Selector OK button VOLTAGE
+%% --- Executes on button press in Region Selector OK button VOLTAGE
 function pushbuttonVmRegOK_Callback(hObject, eventdata, handles)
-    data=handles.data;
-    imstd=handles.imstd;
-    gr=handles.gr;
-    gc=handles.gc;
-    pr=str2double(handles.editVmRegY.String);
-    pc=str2double(handles.editVmRegX.String);
-    dt=handles.dt;
-    maxrad=str2double(handles.editVmRegR.String);
-    dto=str2double(handles.editVmRegDetrend.String); %detrend polynomial order
-    dt_enable = get(handles.checkboxVmRegDetrend, 'Value'); % check if detrending is enabled.
-    LPF_enable = get(handles.checkboxSmoothVol, 'Value'); % check if LPF is enabled
-    Fc=str2double(handles.editSmoothVolHz.String); % Cutoff Frequency
+data=handles.data;
+imstd=handles.imstd;
+gr=handles.gr;
+gc=handles.gc;
+pr=str2double(handles.editVmRegY.String);
+pc=str2double(handles.editVmRegX.String);
+dt=handles.dt;
+maxrad=str2double(handles.editVmRegR.String);
+dto=str2double(handles.editVmRegDetrend.String); %detrend polynomial order
+dt_enable = get(handles.checkboxVmRegDetrend, 'Value'); % check if detrending is enabled.
+LPF_enable = get(handles.checkboxSmoothVol, 'Value'); % check if LPF is enabled
+Fc=str2double(handles.editSmoothVolHz.String); % Cutoff Frequency
 
-    mode_selection = 2; % This inverts the signal for voltage when choosing the region
+mode_selection = 2; % This inverts the signal for voltage when choosing the region
 
-    [avesig,time,radi]=region(data,gr,gc,pr,pc,dt,maxrad,mode_selection); %region plotter
-    avesig=double(avesig);
+[avesig,time,radi]=region(data,gr,gc,pr,pc,dt,maxrad,mode_selection); %region plotter
+avesig=double(avesig);
 
-    if dt_enable == true
-        opol=dto; %detrend polynomial order
-        time=time';
-        [p,~,mu] = polyfit(time(:),avesig(:),opol);
-        fy=polyval(p,time(:),[],mu);
-        d_voltage=avesig(:)-fy;
-    else
-        d_voltage=avesig; %skip detrending step
-    end
+if dt_enable == true
+    opol=dto; %detrend polynomial order
+    time=time';
+    [p,~,mu] = polyfit(time(:),avesig(:),opol);
+    fy=polyval(p,time(:),[],mu);
+    d_voltage=avesig(:)-fy;
+else
+    d_voltage=avesig; %skip detrending step
+end
 
-    if LPF_enable == true
-        Fs=1/dt;
-        % % FIR 50th order Filtering
-        % hb=100; %high band is 60 Hz
-        % or=50; %50th order
-        % a0=[1 1 0 0];
-        % f0=[0 hb hb*1.25 Fs/2]./(Fs/2);
-        % b = firpm(or,f0,a0);
-        % a = 1;
+if LPF_enable == true
+    Fs=1/dt;
+    % % FIR 50th order Filtering
+    % hb=100; %high band is 60 Hz
+    % or=50; %50th order
+    % a0=[1 1 0 0];
+    % f0=[0 hb hb*1.25 Fs/2]./(Fs/2);
+    % b = firpm(or,f0,a0);
+    % a = 1;
 
-        % IIR 5th order Butterworth  LPF
-        n  = 5;    % Order
-        Wn=(Fc/(Fs/2));
-        [b,a] = butter(n,Wn);
-        pre_voltage=filtfilt(b,a,d_voltage);
-    else
-        pre_voltage=d_voltage;% skip preprocessing step
-    end
+    % IIR 5th order Butterworth  LPF
+    n  = 5;    % Order
+    Wn=(Fc/(Fs/2));
+    [b,a] = butter(n,Wn);
+    pre_voltage=filtfilt(b,a,d_voltage);
+else
+    pre_voltage=d_voltage;% skip preprocessing step
+end
 
-    voltage=double((pre_voltage-min(pre_voltage))/(max(pre_voltage)-min(pre_voltage))); % normalize
+voltage=double((pre_voltage-min(pre_voltage))/(max(pre_voltage)-min(pre_voltage))); % normalize
 
-    axes(handles.axes1) 
-    hold on
-    plot(time(:),voltage);
-    xlabel('Time (s)')
-    ylabel('Fluorescence (AU)');
-    xlim([0 max(time)])
-    set(handles.radiobuttonFigureXTime,'Value',1);
+axes(handles.axes1) 
+hold on
+plot(time(:),voltage,'r');
+xlabel('Time (s)')
+ylabel('Fluorescence (AU)');
+xlim([0 max(time)])
+set(handles.radiobuttonFigureXTime,'Value',1);
 
-    axes(handles.axes3)
-    imagesc(imstd);
-    hold on
-    plot(gc(radi), gr(radi), 'k.');
-    axis image
+axes(handles.axes3)
+imagesc(imstd);
+hold on
+plot(gc(radi), gr(radi), 'k.');
+axis image
 
-    % Exporting variables
-    handles.time=time;
-    handles.voltage=voltage;
-    handles.avesig = avesig;
-    guidata(hObject,handles);
+% Exporting variables
+handles.time=time;
+handles.voltage=voltage;
+guidata(hObject,handles);
 
 
 % PCL entered here to calculate the recommended lockout time.

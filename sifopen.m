@@ -43,7 +43,7 @@ end
 rc=atsif_readfromfile(source);
 if (rc == 22002)
     if filterindex == 1 % Normal andor .SIF selected
-        disp('.SIF loading...')
+        disp('Loading .SIF...')
         [~,loaded] = atsif_isloaded();
         if loaded
             %signal=0, ref=1, backgd=2, 3=source, 4=live;
@@ -85,7 +85,7 @@ if (rc == 22002)
                     data3(:,:,fn+1)=reshape(data, (right-left+1)/hBin,(top-bottom+1)/vBin); % 
                 end
              end
-        disp('DONE loading .SIFX...')     
+        disp('DONE loading .SIFX')     
         end
     end
     atsif_closefile();
