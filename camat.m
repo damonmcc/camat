@@ -22,7 +22,7 @@ function varargout = camat(varargin)
 
 % Edit the above text to modify the response to help camat
 
-% Last Modified by GUIDE v2.5 28-Jan-2019 14:41:46
+% Last Modified by GUIDE v2.5 28-Jan-2019 15:02:58
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -80,7 +80,7 @@ function radiobutton1_Callback(hObject, eventdata, handles)
 
 % Hint: get(hObject,'Value') returns toggle state of radiobutton1
 
-function editVolRegR_Callback(hObject, eventdata, handles)
+function editVmRegR_Callback(hObject, eventdata, handles)
 % Px Radius for Voltage Region
 
 % --- Executes on button press in radiobutton2.
@@ -407,16 +407,16 @@ return
 % xlabel('Time (sec)','FontSize',14,'FontWeight', 'Bold')
 % imagesc(imstd);colorbar;axis image; 
 
-% --- Executes on button press in pushbuttonCalRegPick.
-function pushbuttonCalRegPick_Callback(hObject, eventdata, handles)
+% --- Executes on button press in pushbuttonCaRegPick.
+function pushbuttonCaRegPick_Callback(hObject, eventdata, handles)
 [gr,gc]=find(handles.imstd>0);
 [pc,pr]=ginput(1);                                                                                                                                 
 pc=round(pc);                                                                                                                                       
 pr=round(pr);
 
 % update text boxes
-set(handles.editCalRegX,'String',num2str(pc));
-set(handles.editCalRegY,'String',num2str(pr));
+set(handles.editCaRegX,'String',num2str(pc));
+set(handles.editCaRegY,'String',num2str(pr));
 
 % output needed vars  
 handles.gr=gr;
@@ -424,16 +424,16 @@ handles.gc=gc;
 guidata(hObject,handles);
 
 
-% --- Executes on button press in pushbuttonVolRegPick.
-function pushbuttonVolRegPick_Callback(hObject, eventdata, handles)
+% --- Executes on button press in pushbuttonVmRegPick.
+function pushbuttonVmRegPick_Callback(hObject, eventdata, handles)
 [gr,gc]=find(handles.imstd>0);
 [pc,pr]=ginput(1);                                                                                                                                 
 pc=round(pc);                                                                                                                                       
 pr=round(pr);
 
 % update text boxes
-set(handles.editVolRegX,'String',num2str(pc));
-set(handles.editVolRegY,'String',num2str(pr));
+set(handles.editVmRegX,'String',num2str(pc));
+set(handles.editVmRegY,'String',num2str(pr));
 
 % output needed vars  
 handles.gr=gr;
@@ -442,17 +442,17 @@ guidata(hObject,handles);
 
 
 %% --- Executes on button press in Region Selector OK button CALCIUM
-function pushbutton3_Callback(hObject, eventdata, handles)
+function pushbuttonCaRegOK_Callback(hObject, eventdata, handles)
 data=handles.data;
 imstd=handles.imstd;
 gr=handles.gr;
 gc=handles.gc;
-pr=str2double(handles.editCalRegY.String);
-pc=str2double(handles.editCalRegX.String);
+pr=str2double(handles.editCaRegY.String);
+pc=str2double(handles.editCaRegX.String);
 dt=handles.dt;
-maxrad=str2double(handles.editCalRegR.String);
-dto=str2double(handles.editCalRegDetrend.String); %detrend polynomial order
-dt_enable = get(handles.checkboxCalRegDetrend, 'Value'); % check if detrending is enabled.
+maxrad=str2double(handles.editCaRegR.String);
+dto=str2double(handles.editCaRegDetrend.String); %detrend polynomial order
+dt_enable = get(handles.checkboxCaRegDetrend, 'Value'); % check if detrending is enabled.
 LPF_enable = get(handles.checkboxSmoothCal, 'Value'); % check if LPF is enabled
 Fc=str2double(handles.editSmoothCalHz.String); % Cutoff Frequency
 
@@ -559,18 +559,18 @@ function checkbox7_Callback(hObject, eventdata, handles)
 
 
 
-function editCalRegX_Callback(hObject, eventdata, handles)
-% hObject    handle to editCalRegX (see GCBO)
+function editCaRegX_Callback(hObject, eventdata, handles)
+% hObject    handle to editCaRegX (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
-% Hints: get(hObject,'String') returns contents of editCalRegX as text
-%        str2double(get(hObject,'String')) returns contents of editCalRegX as a double
+% Hints: get(hObject,'String') returns contents of editCaRegX as text
+%        str2double(get(hObject,'String')) returns contents of editCaRegX as a double
 
 
 % --- Executes during object creation, after setting all properties.
-function editCalRegX_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to editCalRegX (see GCBO)
+function editCaRegX_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to editCaRegX (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    empty - handles not created until after all CreateFcns called
 
@@ -582,18 +582,18 @@ end
 
 
 
-function editCalRegY_Callback(hObject, eventdata, handles)
-% hObject    handle to editCalRegY (see GCBO)
+function editCaRegY_Callback(hObject, eventdata, handles)
+% hObject    handle to editCaRegY (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
-% Hints: get(hObject,'String') returns contents of editCalRegY as text
-%        str2double(get(hObject,'String')) returns contents of editCalRegY as a double
+% Hints: get(hObject,'String') returns contents of editCaRegY as text
+%        str2double(get(hObject,'String')) returns contents of editCaRegY as a double
 
 
 % --- Executes during object creation, after setting all properties.
-function editCalRegY_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to editCalRegY (see GCBO)
+function editCaRegY_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to editCaRegY (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    empty - handles not created until after all CreateFcns called
 
@@ -605,8 +605,8 @@ end
 
 
 % --- Executes during object creation, after setting all properties.
-function editCalRegR_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to editCalRegR (see GCBO)
+function editCaRegR_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to editCaRegR (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    empty - handles not created until after all CreateFcns called
 
@@ -1040,9 +1040,9 @@ nFiles=str2double(handles.edit15.String);
 
 gr=handles.gr;
 gc=handles.gc;
-pr=str2double(handles.editCalRegY.String);
-pc=str2double(handles.editCalRegX.String);
-maxrad=str2double(handles.editCalRegR.String);
+pr=str2double(handles.editCaRegY.String);
+pc=str2double(handles.editCaRegX.String);
+maxrad=str2double(handles.editCaRegR.String);
 mode_selection = get(handles.popupmenuMode, 'Value');
 
 thres=handles.editThreshold.Value;
@@ -1145,8 +1145,8 @@ openvar('Btab')
 
 
 % --- Executes during object creation, after setting all properties.
-function editVolRegX_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to editVolRegX (see GCBO)
+function editVmRegX_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to editVmRegX (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    empty - handles not created until after all CreateFcns called
 
@@ -1158,8 +1158,8 @@ end
 
 
 % --- Executes during object creation, after setting all properties.
-function editVolRegY_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to editVolRegY (see GCBO)
+function editVmRegY_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to editVmRegY (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    empty - handles not created until after all CreateFcns called
 
@@ -1170,8 +1170,8 @@ if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgr
 end
 
 % --- Executes during object creation, after setting all properties.
-function editVolRegR_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to editVolRegR (see GCBO)
+function editVmRegR_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to editVmRegR (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    empty - handles not created until after all CreateFcns called
 
@@ -1183,17 +1183,17 @@ end
 
 
 %% --- Executes on button press in Region Selector OK button VOLTAGE
-function pushbuttonVolRegOK_Callback(hObject, eventdata, handles)
+function pushbuttonVmRegOK_Callback(hObject, eventdata, handles)
 data=handles.data;
 imstd=handles.imstd;
 gr=handles.gr;
 gc=handles.gc;
-pr=str2double(handles.editVolRegY.String);
-pc=str2double(handles.editVolRegX.String);
+pr=str2double(handles.editVmRegY.String);
+pc=str2double(handles.editVmRegX.String);
 dt=handles.dt;
-maxrad=str2double(handles.editVolRegR.String);
-dto=str2double(handles.editVolRegDetrend.String); %detrend polynomial order
-dt_enable = get(handles.checkboxVolRegDetrend, 'Value'); % check if detrending is enabled.
+maxrad=str2double(handles.editVmRegR.String);
+dto=str2double(handles.editVmRegDetrend.String); %detrend polynomial order
+dt_enable = get(handles.checkboxVmRegDetrend, 'Value'); % check if detrending is enabled.
 LPF_enable = get(handles.checkboxSmoothVol, 'Value'); % check if LPF is enabled
 Fc=str2double(handles.editSmoothVolHz.String); % Cutoff Frequency
 
@@ -1353,18 +1353,18 @@ if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgr
     set(hObject,'BackgroundColor','white');
 end
 
-function editVolRegDetrend_Callback(hObject, eventdata, handles)
-% hObject    handle to editVolRegDetrend (see GCBO)
+function editVmRegDetrend_Callback(hObject, eventdata, handles)
+% hObject    handle to editVmRegDetrend (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
-% Hints: get(hObject,'String') returns contents of editVolRegDetrend as text
-%        str2double(get(hObject,'String')) returns contents of editVolRegDetrend as a double
+% Hints: get(hObject,'String') returns contents of editVmRegDetrend as text
+%        str2double(get(hObject,'String')) returns contents of editVmRegDetrend as a double
 
 
 % --- Executes during object creation, after setting all properties.
-function editVolRegDetrend_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to editVolRegDetrend (see GCBO)
+function editVmRegDetrend_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to editVmRegDetrend (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    empty - handles not created until after all CreateFcns called
 
@@ -1375,28 +1375,28 @@ if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgr
 end
 
 
-% --- Executes on button press in checkboxVolRegDetrend.
-function checkboxVolRegDetrend_Callback(hObject, eventdata, handles)
-% hObject    handle to checkboxVolRegDetrend (see GCBO)
+% --- Executes on button press in checkboxVmRegDetrend.
+function checkboxVmRegDetrend_Callback(hObject, eventdata, handles)
+% hObject    handle to checkboxVmRegDetrend (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
-% Hint: get(hObject,'Value') returns toggle state of checkboxVolRegDetrend
+% Hint: get(hObject,'Value') returns toggle state of checkboxVmRegDetrend
 
 
 
-function editCalRegDetrend_Callback(hObject, eventdata, handles)
-% hObject    handle to editCalRegDetrend (see GCBO)
+function editCaRegDetrend_Callback(hObject, eventdata, handles)
+% hObject    handle to editCaRegDetrend (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
-% Hints: get(hObject,'String') returns contents of editCalRegDetrend as text
-%        str2double(get(hObject,'String')) returns contents of editCalRegDetrend as a double
+% Hints: get(hObject,'String') returns contents of editCaRegDetrend as text
+%        str2double(get(hObject,'String')) returns contents of editCaRegDetrend as a double
 
 
 % --- Executes during object creation, after setting all properties.
-function editCalRegDetrend_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to editCalRegDetrend (see GCBO)
+function editCaRegDetrend_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to editCaRegDetrend (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    empty - handles not created until after all CreateFcns called
 
@@ -1407,13 +1407,13 @@ if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgr
 end
 
 
-% --- Executes on button press in checkboxCalRegDetrend.
-function checkboxCalRegDetrend_Callback(hObject, eventdata, handles)
-% hObject    handle to checkboxCalRegDetrend (see GCBO)
+% --- Executes on button press in checkboxCaRegDetrend.
+function checkboxCaRegDetrend_Callback(hObject, eventdata, handles)
+% hObject    handle to checkboxCaRegDetrend (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
-% Hint: get(hObject,'Value') returns toggle state of checkboxCalRegDetrend
+% Hint: get(hObject,'Value') returns toggle state of checkboxCaRegDetrend
 
 
 % --- Executes on button press in pushbuttonResultsDeltaMean.
@@ -1612,22 +1612,22 @@ function pushbuttonExportCSV_Callback(hObject, eventdata, handles)
     else
         mode_selection = get(handles.popupmenuMode, 'Value');
         if mode_selection ==  1 % Dual
-            handleVXY = strcat('Vx', handles.editVolRegX.String, 'Vy', handles.editVolRegY.String,...
-                'Vr', handles.editVolRegR.String)
-            handleCXY = strcat('Cx', handles.editCalRegX.String,'Cy', handles.editCalRegY.String,...
-                'Cr', handles.editCalRegR.String)
+            handleVXY = strcat('Vx', handles.editVmRegX.String, 'Vy', handles.editVmRegY.String,...
+                'Vr', handles.editVmRegR.String)
+            handleCXY = strcat('Cx', handles.editCaRegX.String,'Cy', handles.editCaRegY.String,...
+                'Cr', handles.editCaRegR.String)
             handleXY = strcat(handleVXY, handleCXY)
             % Add time and signal arrays into a table, 
             T = table(time, handles.voltage, handles.calcium);
             T.Properties.VariableNames={'Time', 'Voltage', 'Calcium'};
         elseif mode_selection == 2 % Voltage only
-            handleXY = strcat('Vx',handles.editVolRegX.String,'y',handles.editVolRegY.String,...
-                'r', handles.editVolRegR.String)
+            handleXY = strcat('Vx',handles.editVmRegX.String,'y',handles.editVmRegY.String,...
+                'r', handles.editVmRegR.String)
             T = table(time, handles.voltage);
             T.Properties.VariableNames={'Time', 'Voltage'};
         elseif mode_selection == 3 % Calcium only
-            handleXY = strcat('Cx',handles.editCalRegX.String,'y',handles.editCalRegY.String,...
-                'Vr', handles.editCalRegR.String)
+            handleXY = strcat('Cx',handles.editCaRegX.String,'y',handles.editCaRegY.String,...
+                'Vr', handles.editCaRegR.String)
             T = table(time, handles.calcium);
             T.Properties.VariableNames={'Time', 'Calcium'};
         end
@@ -1660,20 +1660,30 @@ function pushbuttonExportCSV_Callback(hObject, eventdata, handles)
 
 
 
-function editVolRegX_Callback(hObject, eventdata, handles)
-% hObject    handle to editVolRegX (see GCBO)
+function editVmRegX_Callback(hObject, eventdata, handles)
+% hObject    handle to editVmRegX (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
-% Hints: get(hObject,'String') returns contents of editVolRegX as text
-%        str2double(get(hObject,'String')) returns contents of editVolRegX as a double
+% Hints: get(hObject,'String') returns contents of editVmRegX as text
+%        str2double(get(hObject,'String')) returns contents of editVmRegX as a double
 
 
 
-function editVolRegY_Callback(hObject, eventdata, handles)
-% hObject    handle to editVolRegY (see GCBO)
+function editVmRegY_Callback(hObject, eventdata, handles)
+% hObject    handle to editVmRegY (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
-% Hints: get(hObject,'String') returns contents of editVolRegY as text
-%        str2double(get(hObject,'String')) returns contents of editVolRegY as a double
+% Hints: get(hObject,'String') returns contents of editVmRegY as text
+%        str2double(get(hObject,'String')) returns contents of editVmRegY as a double
+
+
+
+function editCaRegR_Callback(hObject, eventdata, handles)
+% hObject    handle to editCaRegR (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of editCaRegR as text
+%        str2double(get(hObject,'String')) returns contents of editCaRegR as a double
