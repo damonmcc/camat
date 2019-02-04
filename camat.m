@@ -666,7 +666,6 @@ function pushbuttonThresholdDetect_Callback(hObject, eventdata, handles)
 
 % --- Executes on button press in pushbuttonProcessSingle.Processing GO. Main Loop Here
 function summary=pushbuttonProcessSingle_Callback(hObject, eventdata, handles)
-clc
 
 mode_selection = get(handles.popupmenuMode, 'Value');
 
@@ -698,6 +697,7 @@ handles.CMtab=CMtab; % mean results row for calcium
 guidata(hObject,handles);
 
 function processVoltage(hObject, eventdata, handles)
+% Loading in data
 voltage=handles.voltage;
 time=handles.time;
 fps=handles.fps;
